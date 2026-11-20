@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#2b1e16">
+<title>Implică-te în slujire · Biserica Philadelphia Mansuè</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#2b1e16; --card:#3a2a1f; --line:#5a4433; --ink:#f3ebdf; --muted:#cdbfa9;
+    --gold:#dcc8a5; --gold2:#efe1c6; --ok:#cfe0b0; --err:#ffb7a3;
+    --field:#20160f; --sel:#4b3727; --btnink:#2b1e16;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.5}
+  body{padding:env(safe-area-inset-top) 0 env(safe-area-inset-bottom)}
+  .wrap{max-width:560px;margin:0 auto;padding:18px 20px 60px}
+  .lang{display:flex;justify-content:flex-end;gap:0;margin-bottom:6px}
+  .lang button{background:transparent;color:var(--muted);border:1px solid var(--line);padding:6px 14px;font:600 13px Inter,sans-serif;cursor:pointer}
+  .lang button:first-child{border-radius:999px 0 0 999px}
+  .lang button:last-child{border-radius:0 999px 999px 0;border-left:0}
+  .lang button[aria-pressed=true]{background:var(--gold);color:var(--btnink);border-color:var(--gold)}
+  header{text-align:center;padding:4px 0 8px}
+  .logo{display:block;margin:0 auto 14px;width:78%;max-width:340px;height:auto}
+  h1{font-family:Fraunces,serif;font-weight:700;font-size:34px;line-height:1.1;margin:14px 0 10px}
+  .lead{color:var(--muted);margin:0 auto;max-width:440px}
+  .verse{margin:26px 0;padding:18px 20px;border-left:3px solid var(--gold);background:var(--card);border-radius:0 14px 14px 0;font-family:Fraunces,serif;font-size:17px}
+  .verse small{display:block;margin-top:8px;font-family:Inter,sans-serif;font-size:13px;color:var(--gold)}
+  h2{font-family:Fraunces,serif;font-size:22px;margin:34px 0 12px}
+  .info{display:grid;gap:10px}
+  .info div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+  .info b{color:var(--gold2)}
+  label.f{display:block;font-weight:600;margin:18px 0 6px}
+  .hint{font-weight:400;color:var(--muted);font-size:14px}
+  input[type=text],input[type=tel],input[type=email],input[type=password],input[type=number],textarea{
+    width:100%;padding:13px 14px;border-radius:12px;border:1px solid var(--line);background:var(--field);color:var(--ink);font:inherit}
+  input:focus,textarea:focus{outline:2px solid var(--gold);border-color:transparent}
+  textarea{min-height:90px;resize:vertical}
+  .deps{display:grid;gap:10px}
+  .dep{position:relative;display:flex;gap:12px;align-items:flex-start;background:var(--card);border:1.5px solid var(--line);border-radius:14px;padding:13px 14px;cursor:pointer;transition:border-color .15s,background .15s}
+  .dep input{position:absolute;opacity:0;pointer-events:none}
+  .ic{width:26px;height:26px;flex:none;fill:var(--gold);margin-top:2px}
+  .dep .t{font-weight:600}
+  .dep .d{color:var(--muted);font-size:14px}
+  .dep:has(input:checked){border-color:var(--gold);background:var(--sel)}
+  .dep:has(input:checked)::after{content:"✓";position:absolute;right:14px;top:12px;color:var(--gold);font-weight:700}
+  .dep.closed{cursor:default;opacity:.55;border-style:dashed}
+  .pill{display:inline-block;margin-top:6px;padding:2px 10px;border-radius:999px;font-size:12.5px;font-weight:500;border:1px solid var(--gold);color:var(--gold)}
+  .pill.off{border-color:var(--line);color:var(--muted)}
+  .consent{display:flex;gap:10px;align-items:flex-start;margin-top:22px;font-size:14px;color:var(--muted)}
+  .consent input{width:20px;height:20px;margin-top:2px;accent-color:var(--gold)}
+  button{font:600 15px Inter,sans-serif;cursor:pointer;border-radius:12px}
+  .btn{width:100%;margin-top:24px;padding:16px;border:0;border-radius:14px;background:var(--gold);color:var(--btnink);font-size:17px}
+  .btn:disabled{opacity:.6}
+  .gh{background:transparent;color:var(--gold);border:1px solid var(--gold);padding:9px 14px}
+  .gh.sm{padding:6px 11px;font-size:13px;border-radius:10px}
+  .gh.red{color:var(--err);border-color:#7a4a3c}
+  .gh.solid{background:var(--gold);color:var(--btnink)}
+  .msg{margin-top:14px;font-size:15px}
+  .msg.err{color:var(--err)}
+  .center{text-align:center;padding:40px 10px}
+  .center .ic{width:52px;height:52px;margin:0 auto}
+  footer{margin-top:44px;text-align:center;color:var(--muted);font-size:13px}
+  [hidden]{display:none!important}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:13px 14px;margin-top:10px}
+  .card h3{margin:0;font-size:17px}
+  .meta{color:var(--muted);font-size:14px}
+  .meta a,.card a{color:var(--gold)}
+  .chips{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+  .chip{background:var(--card);border:1px solid var(--line);border-radius:999px;padding:6px 12px;font-size:13.5px;cursor:pointer;color:var(--ink);font-weight:500}
+  .chip.on{border-color:var(--gold);color:var(--gold)}
+  .st{font-size:12px;font-weight:600;padding:2px 9px;border-radius:999px;border:1px solid var(--line);white-space:nowrap}
+  .st.nou{border-color:var(--gold);color:var(--gold)} .st.acceptat{border-color:#8fae6e;color:var(--ok)} .st.respins{color:var(--err);border-color:#7a4a3c}
+  .depadm{display:grid;gap:8px}
+  .depadm .num{width:64px;padding:7px 9px;border-radius:10px}
+  #qrbox{background:#fff;padding:16px;border-radius:14px;display:inline-block;margin-top:12px}
+  #qrbox svg{display:block;width:240px;height:240px}
+  .overlay{position:fixed;inset:0;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;padding:20px;z-index:9}
+  .overlay>div{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:20px;max-width:340px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="lang" role="group" aria-label="Limba / Lingua">
+    <button type="button" data-lang="ro" aria-pressed="true">RO</button>
+    <button type="button" data-lang="it" aria-pressed="false">IT</button>
+  </div>
+  <header>
+    <svg class="logo" role="img" aria-label="Biserica Philadelphia Mansuè" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 762 328"><path fill="#f4e9c9" fill-rule="evenodd" d="M400 229 401 234 404 241 404 244 406 247 408 257 411 264 407 266 400 266 405 273 424 291 441 303 462 314 464 314 469 317 471 317 481 321 484 321 485 322 488 322 493 324 497 324 498 325 511 326 512 327 543 327 544 326 557 325 558 324 562 324 563 323 567 323 571 321 574 321 575 320 586 317 589 315 591 315 596 312 598 312 616 302 626 295 626 292 616 292 615 293 610 293 608 295 587 305 585 305 572 310 568 310 567 311 558 312 557 313 551 313 550 314 518 314 517 313 505 312 504 311 497 310 493 308 490 308 489 307 484 306 481 304 479 304 474 301 472 301 464 297 462 295 457 293 448 287 440 280 439 280 421 262 421 261 413 252 408 243 406 241 405 238 403 236ZM364 205 360 209 360 211 359 212 359 222 361 226 367 230 377 230 381 228 383 225 383 222 380 222 375 226 369 226 366 223 365 219 366 218 382 218 383 217 383 210 382 208 376 204 366 204ZM365 213 369 208 374 208 377 211 377 213 378 214 377 215 366 215ZM330 204 329 206 329 223 331 228 334 230 342 230 346 227 348 230 351 230 353 228 353 206 352 204 348 204 346 207 346 222 341 226 339 226 336 223 336 221 335 220 335 205 334 204ZM304 205 301 209 301 213 302 215 307 218 315 220 317 222 317 224 315 226 309 226 305 222 305 221 302 221 301 222 301 226 307 230 317 230 318 229 320 229 323 225 323 219 320 216 309 213 307 211 307 209 310 207 312 207 318 212 320 212 322 211 322 208 317 204 306 204ZM272 204 272 229 273 230 276 230 278 228 278 213 281 209 285 208 288 210 288 212 289 213 289 229 290 230 294 230 295 228 295 209 294 207 290 204 282 204 278 207 276 204ZM245 205 242 208 242 212 243 213 245 213 247 210 250 208 256 208 258 210 258 213 257 214 254 214 249 216 245 216 242 218 240 222 240 224 242 228 245 230 253 230 259 227 261 230 265 230 265 223 264 222 264 208 263 206 260 204 247 204ZM257 217 258 218 258 222 254 226 249 226 247 224 247 221 249 219ZM364 194 364 195 365 195 366 197 370 200 374 200 370 194ZM202 194 200 196 200 228 201 230 205 230 206 229 206 206 207 205 209 209 209 212 210 213 213 228 215 230 219 230 221 228 221 226 223 222 223 218 225 214 225 210 227 206 228 207 228 228 230 230 233 230 234 229 234 196 232 194 225 194 222 199 222 203 220 207 219 214 217 217 215 213 215 210 214 209 214 206 213 205 213 202 212 201 211 196 209 194ZM646 243 599 198 598 198 595 194 592 192 590 192 641 241 641 242 638 244 633 244 632 245 628 245 627 246 609 248 608 249 600 251 591 256 588 253 583 245 573 235 573 234 569 231 569 230 563 224 551 208 550 208 549 206 548 206 547 204 543 201 543 200 547 207 554 215 560 224 586 252 588 255 588 257 583 260 580 260 579 261 576 260 577 261 576 263 570 263 569 264 564 264 559 266 555 266 554 267 548 268 541 271 540 270 534 271 524 276 519 277 513 280 508 284 502 286 499 283 499 281 497 278 497 275 496 274 496 272 491 259 491 256 489 252 490 250 492 252 495 258 495 262 500 273 500 279 501 281 504 283 503 282 503 279 506 274 506 271 503 268 503 261 501 257 501 253 498 250 500 247 503 249 498 233 495 228 495 226 493 223 493 221 491 218 491 216 489 213 487 206 478 211 474 212 474 216 477 223 477 226 478 227 478 229 480 233 480 236 483 243 483 246 486 253 488 263 492 273 494 283 495 284 496 289 498 291 503 291 504 290 506 290 511 287 513 287 516 285 518 285 523 282 528 281 541 275 544 275 547 273 549 273 559 269 562 269 566 267 569 267 573 265 576 267 581 267 582 266 588 265 591 263 593 264 593 262 595 260 607 254 614 252 621 247 623 247 624 248 637 247 638 246 645 245ZM579 262 580 261 582 261 583 262 582 263 580 263ZM582 261 583 260 585 260 586 261 585 262 583 262ZM480 223 481 222 482 223 481 224ZM436 121 434 121 433 120 404 120 402 122 402 174 405 177 408 177 412 174 412 155 413 154 432 153 437 151 441 148 444 142 444 131 441 125ZM412 129 414 127 420 127 421 128 427 128 429 129 433 134 433 140 427 145 424 145 423 146 414 146 412 144ZM303 120 301 123 301 173 303 175 305 175 306 176 340 176 341 175 343 175 344 170 343 168 341 168 340 167 312 167 311 166 311 152 312 151 336 151 337 150 339 150 341 148 341 145 337 142 312 142 311 141 311 129 312 128 340 128 342 127 343 122 341 120ZM245 120 242 123 242 172 243 174 247 176 268 176 269 175 274 175 280 172 286 166 288 162 289 155 290 154 290 141 289 140 289 136 285 128 280 123 273 120ZM254 128 266 128 267 129 270 129 276 134 278 138 278 141 279 142 279 152 278 153 278 157 276 161 271 166 269 166 268 167 254 167 253 166 253 129ZM32 120 3 120 0 123 0 173 2 176 7 177 9 176 11 173 11 155 12 154 31 153 36 151 41 146 42 141 43 140 43 133 42 132 42 129 39 124ZM11 128 12 127 19 127 20 128 26 128 28 129 31 132 31 134 32 135 31 141 26 145 22 145 21 146 12 146 11 145ZM518 119 516 120 516 122 515 123 515 172 517 176 522 177 524 176 526 173 526 122 525 120 523 119ZM558 119 555 121 552 127 552 129 550 132 550 134 544 147 543 152 540 157 539 162 536 168 536 175 539 177 544 176 550 162 572 162 574 164 574 166 576 169 576 171 578 175 581 177 584 177 587 174 587 168 583 160 582 155 579 150 579 148 577 145 577 143 575 140 575 138 573 135 573 133 571 130 569 123 565 119 562 119 561 118 560 119ZM561 131 563 134 568 150 570 153 569 154 554 154 553 153 553 151 555 148 557 140 559 137 559 135ZM457 119 455 121 455 123 454 124 454 171 455 172 455 174 459 177 461 177 465 174 465 152 466 151 490 151 491 152 491 174 495 177 498 177 502 172 502 124 501 123 501 121 499 119 497 119 496 118 492 120 491 122 491 141 490 142 466 142 465 141 465 121 463 119 461 119 460 118 459 119ZM356 119 354 121 354 123 353 124 353 170 355 175 357 175 358 176 390 176 393 174 393 169 391 167 365 167 364 166 364 122 362 119 360 119 359 118 358 119ZM210 119 208 119 207 118 206 119 203 119 199 123 199 125 195 133 194 138 191 143 190 148 188 151 188 153 186 156 186 158 181 169 181 174 185 177 188 177 191 174 194 164 196 162 218 162 220 165 220 167 223 174 226 177 231 176 233 173 233 169 231 166 231 164 229 161 229 159 227 156 225 149 222 144 222 142 218 134 217 129 213 121ZM206 132 207 132 209 135 212 146 215 152 214 154 199 154 198 153ZM140 119 138 122 138 172 139 174 143 176 174 176 178 173 178 170 177 168 175 167 150 167 149 166 149 123 146 119 144 119 143 118 142 119ZM119 118 118 119 116 119 114 121 114 174 118 177 122 176 125 172 125 123 122 119 120 119ZM98 119 96 119 95 118 94 119 92 119 90 121 90 141 89 142 65 142 64 141 64 122 63 120 61 119 56 119 54 120 54 122 53 123 53 173 55 176 60 177 62 176 64 173 64 152 65 151 89 151 90 152 90 174 93 177 96 177 100 174 100 121ZM665 28 663 29 663 31 659 41 665 50 674 68 674 70 678 77 682 91 681 92 673 93 672 94 664 94 663 95 657 95 656 96 632 97 631 98 616 98 610 104 610 106 613 112 648 111 649 110 667 109 668 108 673 108 674 107 686 106 688 109 688 113 689 114 689 118 690 119 690 124 691 125 691 130 692 131 692 141 693 142 693 176 692 177 692 187 691 188 691 193 690 194 690 200 689 201 688 209 687 210 686 217 684 221 684 224 683 225 680 236 676 244 676 246 672 253 672 255 660 277 652 289 649 292 648 315 653 310 665 294 670 285 674 280 677 273 679 271 690 248 691 243 693 240 693 238 699 222 699 219 700 218 700 215 701 214 701 211 703 206 703 201 705 196 705 190 706 189 706 183 707 182 707 171 708 170 708 136 707 135 707 124 706 123 706 117 705 116 705 111 704 110 703 103 706 101 717 99 721 97 731 95 732 94 752 88 755 86 760 85 761 83 761 80 753 73 751 73 732 80 729 80 726 82 723 82 722 83 715 84 711 86 707 86 703 88 700 88 697 81 697 78 696 77 695 72 690 61 690 59 678 34ZM564 3 564 6 566 11 567 21 572 23 575 23 579 25 582 25 585 27 592 29 613 40 626 50 630 52 631 46 634 38 622 28 598 14 596 14 591 11 589 11 586 9 584 9 574 5ZM509 0 504 0 503 1 499 1 498 2 493 2 492 3 489 3 488 4 485 4 481 6 478 6 477 7 472 8 446 20 424 35 419 40 418 40 418 41 416 42 406 52 405 54 404 54 404 55 396 64 394 68 392 76 390 79 389 84 386 90 386 99 392 90 400 81 401 82 401 88 438 53 439 53 440 51 457 39 474 30 476 30 481 27 483 27 493 23 496 23 501 21 505 21 506 20 510 20 511 19 518 19 519 17Z"/></svg>
+    <h1 id="ttl" data-t="title"></h1>
+    <p class="lead" id="lead" data-t="lead"></p>
+  </header>
+
+  <section id="locked" class="center" hidden>
+    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 17a2 2 0 0 0 2-2 2 2 0 0 0-2-2 2 2 0 0 0-2 2 2 2 0 0 0 2 2m6-9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V10a2 2 0 0 1 2-2h1V6a5 5 0 0 1 5-5 5 5 0 0 1 5 5v2h1m-6-5a3 3 0 0 0-3 3v2h6V6a3 3 0 0 0-3-3m6 7H6v10h12V10z"/></svg>
+    <h2 data-t="lockedT"></h2>
+    <p class="lead" data-t="lockedP"></p>
+  </section>
+
+  <main id="main" hidden>
+    <div class="verse"><span data-t="verse"></span><small data-t="verseRef"></small></div>
+
+    <h2 data-t="howT"></h2>
+    <div class="info">
+      <div data-t="how1"></div>
+      <div data-t="how2"></div>
+      <div data-t="how3"></div>
+    </div>
+
+    <h2 data-t="progT"></h2>
+    <div class="info">
+      <div data-t="prog1"></div>
+      <div data-t="prog2"></div>
+    </div>
+
+    <form id="f" novalidate>
+      <h2 data-t="formT"></h2>
+      <label class="f" for="nume" data-t="lName"></label>
+      <input id="nume" name="nume" type="text" autocomplete="name" required maxlength="120">
+      <label class="f" for="telefon" data-t="lPhone"></label>
+      <input id="telefon" name="telefon" type="tel" autocomplete="tel" inputmode="tel" required maxlength="30" placeholder="+39 ...">
+      <label class="f" for="email" data-t="lEmail"></label>
+      <input id="email" name="email" type="email" autocomplete="email" maxlength="160">
+      <label class="f" data-t="lDeps"></label>
+      <div class="deps" id="deps"><p class="hint" data-t="loadingDeps"></p></div>
+      <label class="f" for="alt" data-t="lOther"></label>
+      <input id="alt" name="alt" type="text" maxlength="200" data-tp="phOther">
+      <label class="f" for="exp" data-t="lAbout"></label>
+      <textarea id="exp" name="exp" maxlength="1500" data-tp="phAbout"></textarea>
+      <label class="consent"><input type="checkbox" id="ok" required><span data-t="consent"></span></label>
+      <button type="submit" class="btn" id="btn" data-t="send"></button>
+      <div class="msg" id="msg"></div>
+    </form>
+  </main>
+
+  <section id="done" class="center" hidden>
+    <svg class="ic" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.43 9.67c.04.11.07.21.07.33v5.22c0 .5-.19.98-.53 1.35l-2.79 3.05-3.4-3.4L6 15 8.8 2.86a1.114 1.114 0 0 1 2.2.25v4.96a2 2 0 0 0-.5-.07c-1.1 0-2 .9-2 2v3c0 .28.22.5.5.5s.5-.22.5-.5v-3c0-.55.45-1 1-1 .19 0 .35.07.5.16.12.07.21.16.3.26.03.04.06.08.08.13.02.04.04.08.05.12M2 19l4 3 1.17-1.27-3.45-3.45zm16-4L15.2 2.86a1.114 1.114 0 0 0-2.2.25v4.96c.16-.04.33-.07.5-.07 1.1 0 2 .9 2 2v3c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-3c0-.55-.45-1-1-1-.19 0-.35.07-.5.16-.12.07-.21.16-.29.26-.03.04-.07.08-.09.13-.02.04-.04.08-.05.12-.04.11-.07.21-.07.33v5.22c0 .5.19.98.53 1.35l2.79 3.05 3.4-3.4zm2.28 2.28-3.45 3.45L18 22l4-3z"/></svg>
+    <h2 data-t="doneT"></h2>
+    <p class="lead" data-t="doneP"></p>
+  </section>
+
+  <section id="adm" hidden>
+    <form id="login" hidden novalidate>
+      <label class="f" for="em">Email</label>
+      <input id="em" type="email" autocomplete="username" inputmode="email">
+      <label class="f" for="pw" data-t="aPw"></label>
+      <input id="pw" type="password" autocomplete="current-password">
+      <button class="btn" id="go" type="submit" data-t="aEnter"></button>
+      <div class="msg" id="lerr"></div>
+      <p style="text-align:center;margin-top:18px"><button type="button" class="gh sm" id="forgot" data-t="aForgot"></button></p>
+    </form>
+    <form id="setpw" hidden novalidate>
+      <h2 id="setpwT" style="margin-top:0"></h2>
+      <label class="f" for="np1" data-t="aNew"></label>
+      <input id="np1" type="password" autocomplete="new-password">
+      <label class="f" for="np2" data-t="aRepeat"></label>
+      <input id="np2" type="password" autocomplete="new-password">
+      <button class="btn" type="submit" data-t="aSavePw"></button>
+      <div class="msg" id="perr"></div>
+      <p style="text-align:center;margin-top:14px"><button type="button" class="gh sm" id="pwCancel" data-t="cancel"></button></p>
+    </form>
+    <div id="app" hidden>
+      <div class="row">
+        <button class="gh sm" id="reload" data-t="aReload"></button>
+        <button class="gh sm" id="csv" data-t="aCsv"></button>
+        <button class="gh sm" id="qrbtn" data-t="aQr"></button>
+        <button class="gh sm" id="chpw" data-t="aChPw"></button>
+        <button class="gh sm" id="logout" data-t="aLogout"></button>
+      </div>
+      <div id="qrwrap" hidden>
+        <div id="qrbox"></div>
+        <p class="meta" style="word-break:break-all">Link: <a id="qrlink" target="_blank"></a><br>
+          <button class="gh sm" id="qrdl" style="margin-top:8px" data-t="aQrDl"></button></p>
+      </div>
+      <p class="meta" id="cine" style="margin:14px 0 0"></p>
+      <h2 id="hdep"></h2>
+      <p class="hint" style="margin-top:-6px" data-t="aHelp"></p>
+      <div class="depadm" id="depadm"></div>
+      <h2 data-t="aSubs"></h2>
+      <div class="chips" id="fst"></div>
+      <div class="chips" id="fdep"></div>
+      <div id="list"></div>
+    </div>
+  </section>
+
+  <footer>Biserica Philadelphia Mansuè</footer>
+</div>
+
+<div class="overlay" id="confirm" hidden><div><p id="cfText"></p>
+  <div class="row"><button class="gh solid" id="cfYes" data-t="yes"></button><button class="gh" id="cfNo" data-t="cancel"></button></div></div></div>
+
+<script>
+const SB_URL = "https://nfrjgddgfdfzgdtwtspz.supabase.co";
+const SB_KEY = "sb_publishable_GHz1SSA7opKrOCo0PW--wg_3ZpE24WL";
+const ICONS = {"music": "<path d=\"M12 3v10.55A4 4 0 1 0 14 17V7h4V3m-8 16a2 2 0 1 1 2-2 2 2 0 0 1-2 2\"/>", "sunet": "<path d=\"M8 12.14V2H6v10.14c-1.72.45-3 2-3 3.86s1.28 3.41 3 3.86V22h2v-2.14c1.72-.45 3-2 3-3.86s-1.28-3.41-3-3.86M7 14c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2M18 2h-2v2.14c-1.72.45-3 2-3 3.86s1.28 3.41 3 3.86V22h2V11.86c1.72-.45 3-2 3-3.86s-1.28-3.41-3-3.86zm-1 4c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2\"/>", "ecran": "<path d=\"M21 16H3V4h18m0-2H3c-1.11 0-2 .89-2 2v12a2 2 0 0 0 2 2h7v2H8v2h8v-2h-2v-2h7a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2\"/>", "live": "<path d=\"M15 8v8H5V8zm1-2H4a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-3.5l4 4v-11l-4 4V7a1 1 0 0 0-1-1\"/>", "copii": "<path d=\"M12 17c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2m0-7c2.34 0 7 1.16 7 3.5v5.13c0 .87-.69 1.61-1.66 2.16v-7.41c0-.56-2.74-1.84-5.34-1.84s-5.34 1.28-5.34 1.84v5.37c0 .25.65.71 1.62 1.1C9 19 10.93 18.56 12 18.56c1.33 0 4 .66 4 2v.83c-1.37.49-2.93.74-4 .74s-2.62-.25-4-.74c-1.63-.58-3-1.5-3-2.76V13.5c0-2.34 4.66-3.5 7-3.5m0-6.25c-.97 0-1.75.78-1.75 1.75s.78 1.75 1.75 1.75 1.75-.78 1.75-1.75-.78-1.75-1.75-1.75M12 9c-1.93 0-3.5-1.57-3.5-3.5S10.07 2 12 2s3.5 1.57 3.5 3.5S13.93 9 12 9\"/>", "flacara": "<path d=\"M14.265 1.627c0 3.545 1.869 5.327 3.479 7.021 1.54 1.62 3.006 3.163 3.006 6.102 0 4.812-3.753 8.25-8.565 8.25-4.813 0-8.935-3.421-8.935-8.25 0-2.039.962-4.011 2.509-4.899.305-.175.672.007.803.334C7.563 12.684 8.797 12.64 9.437 12c.388-.387.47-1.116-.004-2.062-2.405-4.812 1.863-8.279 4.2-8.854.336-.082.615.198.632.543M12.185 21.5c4.059 0 7.065-2.84 7.065-6.75 0-2.337-1.093-3.489-2.678-5.158l-.021-.023c-1.44-1.517-3.139-3.351-3.649-6.557a6.15 6.15 0 0 0-1.911 1.76c-.787 1.144-1.147 2.633-.216 4.495.603 1.205.777 2.74-.277 3.794-.657.657-1.762 1.1-2.956.586-.752-.324-1.353-.955-1.838-1.79-.567.706-.954 1.74-.954 2.893 0 3.847 3.288 6.75 7.435 6.75\"/>", "rug": "<path d=\"M11.43 9.67c.04.11.07.21.07.33v5.22c0 .5-.19.98-.53 1.35l-2.79 3.05-3.4-3.4L6 15 8.8 2.86a1.114 1.114 0 0 1 2.2.25v4.96a2 2 0 0 0-.5-.07c-1.1 0-2 .9-2 2v3c0 .28.22.5.5.5s.5-.22.5-.5v-3c0-.55.45-1 1-1 .19 0 .35.07.5.16.12.07.21.16.3.26.03.04.06.08.08.13.02.04.04.08.05.12M2 19l4 3 1.17-1.27-3.45-3.45zm16-4L15.2 2.86a1.114 1.114 0 0 0-2.2.25v4.96c.16-.04.33-.07.5-.07 1.1 0 2 .9 2 2v3c0 .28-.22.5-.5.5s-.5-.22-.5-.5v-3c0-.55-.45-1-1-1-.19 0-.35.07-.5.16-.12.07-.21.16-.29.26-.03.04-.07.08-.09.13-.02.04-.04.08-.05.12-.04.11-.07.21-.07.33v5.22c0 .5.19.98.53 1.35l2.79 3.05 3.4-3.4zm2.28 2.28-3.45 3.45L18 22l4-3z\"/>", "megafon": "<path d=\"M22 1.75v14.5a.75.75 0 0 1-.399.662c-.384.204-.783-.035-1.139-.248l-.003-.002c-.09-.054-.177-.107-.261-.15a15.5 15.5 0 0 0-2-.849c-1.738-.607-4.321-1.223-7.703-1.251a1 1 0 0 1 .005.088c0 2.279.494 4.279.906 5.547.368 1.131-.438 2.453-1.732 2.453H7.661c-.696 0-1.36-.42-1.6-1.129C5.684 20.255 5 17.811 5 14.75v-.457A5.5 5.5 0 0 1 6.5 3.5h3.75c3.505 0 6.175-.61 7.955-1.21a16 16 0 0 0 2.002-.82 9 9 0 0 0 .49-.262q.072-.041.142-.085A.751.751 0 0 1 22 1.75M10.5 12.912c3.564.029 6.313.678 8.193 1.335.737.258 1.34.517 1.807.74V2.993c-.467.216-1.073.467-1.815.718-1.878.634-4.624 1.26-8.185 1.288ZM6.5 5a4 4 0 0 0 0 8H9V5Zm0 9.75c0 2.847.638 5.123.982 6.141.018.051.074.109.179.109h2.013c.087 0 .179-.043.249-.147a.4.4 0 0 0 .057-.343C9.537 19.148 9 16.986 9 14.5H6.5Z\"/>", "cos": "<path d=\"M17 18a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2M1 2h3.27l.94 2H20a1 1 0 0 1 1 1c0 .17-.05.34-.12.5l-3.58 6.47c-.34.61-1 1.03-1.75 1.03H8.1l-.9 1.63-.03.12a.25.25 0 0 0 .25.25H19v2H7a2 2 0 0 1-2-2c0-.35.09-.68.24-.96l1.36-2.45L3 4H1zm6 16a2 2 0 0 1 2 2 2 2 0 0 1-2 2 2 2 0 0 1-2-2c0-1.11.89-2 2-2m9-7 2.78-5H6.14l2.36 5z\"/>", "oala": "<path d=\"M8 1.5a3.35 3.35 0 0 0 0 6.7h1.53c.39 0 .76.1 1.08.3h2.02c-.58-1.05-1.77-1.75-3.1-1.75H8c-1 0-1.85-.98-1.85-2S7 3 8 3zm4.85.5c0 1-.85 1.85-1.85 1.85v1.5c1.92 0 3.5 1.35 3.89 3.15h1.53a5.54 5.54 0 0 0-3.07-4.12c.62-.61 1-1.45 1-2.38zM3 10v2h2v7a2 2 0 0 0 2 2h10c1.11 0 2-.89 2-2v-7h2v-2zm4 2h10v7H7z\"/>"};
+
+// ---------- traduceri / traduzioni ----------
+const T = {
+ro: {
+  docTitle:"Implică-te în slujire · Biserica Philadelphia Mansuè",
+  title:"Implică-te în slujire", adminTitle:"Administrare",
+  lead:"Fiecare dintre noi are un dar de la Dumnezeu. Alege unde ai vrea să slujești și te vom contacta noi.",
+  lockedT:"Pagină pentru membrii bisericii", lockedP:"Pentru a te înscrie, scanează codul QR afișat în biserică.",
+  verse:"„Ca niște buni ispravnici ai harului felurit al lui Dumnezeu, fiecare din voi să slujească altora după darul pe care l-a primit.”", verseRef:"1 Petru 4:10",
+  howT:"Cum funcționează",
+  how1:"<b>1. Alege</b> unul sau mai multe departamente — nu e nevoie de experiență.",
+  how2:"<b>2. Te contactăm</b> în câteva zile: responsabilul departamentului te sună sau îți scrie pe WhatsApp.",
+  how3:"<b>3. Începi</b> cu o perioadă de acomodare, alături de cineva din echipă.",
+  progT:"Programul bisericii", prog1:"<b>Tineret</b> — în fiecare luni, ora 19:30", prog2:"<b>Cina Domnului</b> — în prima duminică a lunii",
+  formT:"Formular de înscriere", lName:"Nume și prenume", lPhone:"Telefon / WhatsApp",
+  lEmail:'Email <span class="hint">(opțional)</span>',
+  lDeps:'În ce departament vrei să slujești? <span class="hint">Poți alege mai multe.</span>',
+  loadingDeps:"Se încarcă departamentele…",
+  lOther:'Altceva? <span class="hint">(opțional)</span>', phOther:"Ex.: fotografie, traduceri, transport…",
+  lAbout:'Spune-ne puțin despre tine <span class="hint">(opțional)</span>', phAbout:"Daruri, experiență, ce îți place să faci…",
+  consent:"Sunt de acord ca datele mele să fie folosite doar de biserică pentru a mă contacta în legătură cu slujirea.",
+  send:"Trimite înscrierea", sending:"Se trimite…",
+  doneT:"Mulțumim!", doneP:"Înscrierea ta a fost primită. Te vom contacta în curând. Dumnezeu să te binecuvânteze!",
+  seeking:n => "Căutăm " + (n === 1 ? "o persoană" : n + " persoane"), closed:"Momentan nu căutăm oameni",
+  eName:"Scrie numele și prenumele.", ePhone:"Scrie un număr de telefon valid.", eDep:"Alege cel puțin un departament.", eConsent:"Bifează acordul pentru date.",
+  eDepsLoad:"Nu s-au putut încărca departamentele. Verifică internetul și reîncarcă pagina.",
+  eClosedNow:"Nu s-a putut trimite: un departament ales tocmai s-a închis sau codul QR nu mai e valid. Am reîncărcat lista — verifică alegerea și încearcă din nou.",
+  eNet:"Nu s-a putut trimite. Verifică internetul și încearcă din nou.",
+  aPw:"Parola", aEnter:"Intră", aForgot:"Am uitat parola", aSetNew:"Setează parola nouă", aChPw:"Schimbă parola",
+  aNew:'Parola nouă <span class="hint">(minim 8 caractere)</span>', aRepeat:"Repetă parola", aSavePw:"Salvează parola", cancel:"Anulează", yes:"Da",
+  aReload:"Reîncarcă", aCsv:"Descarcă CSV", aQr:"Cod QR", aLogout:"Ieși", aQrDl:"Descarcă QR (PNG)",
+  aWho:"Ești conectat ca lider:", aAll:"Toate departamentele", aMine1:"Departamentul tău", aMineN:"Departamentele tale",
+  aHelp:"Închis = pe formular apare „Momentan nu căutăm oameni”. Dacă pui un număr, la fiecare persoană acceptată scade cu 1; la 0 departamentul se închide singur.",
+  aCounts:(n,a) => (n == 1 ? "1 nou" : n + " noi") + " · " + (a == 1 ? "1 acceptat" : a + " acceptați"),
+  aOpen:"Deschis", aClosed:"Închis", aDoClose:"Închide înscrierile", aDoOpen:"Deschide înscrierile", aStill:"Mai caut", aSave:"Salvează",
+  aSubs:"Înscrieri", fNou:"Noi", fAcceptat:"Acceptați", fRespins:"Refuzați", fToti:"Toți", fAllDeps:"Toate departamentele",
+  sNou:"Nou", sAcceptat:"Acceptat", sRespins:"Refuzat",
+  bAccept:"Acceptă", bReject:"Refuză", bBack:"Înapoi la noi", bDel:"Șterge", aEmpty:"Nicio înscriere aici.", aDelQ:"Ștergi definitiv această înscriere?",
+  leEmail:"Scrie adresa de email.", lePw:"Scrie parola.", leWrong:"Email sau parolă greșită.", leFail:"Nu s-a putut intra: ",
+  leForgotFirst:"Scrie mai întâi adresa de email, apoi apasă „Am uitat parola”.",
+  leSent:"Dacă adresa are cont, ți-am trimis un email cu linkul pentru parola nouă. Verifică și folderul Spam.", leSendFail:"Nu s-a putut trimite emailul: ",
+  peShort:"Parola trebuie să aibă minim 8 caractere.", peMismatch:"Cele două parole nu coincid.", peOk:"Parola a fost schimbată.",
+  peExpired:"Sesiunea a expirat. Intră din nou.", peFail:"Nu s-a putut salva: ",
+  csv:["Data","Nume","Telefon","Email","Departament","Detalii","Despre","Status"], locale:"ro-RO"
+},
+it: {
+  docTitle:"Impegnati nel servizio · Chiesa Philadelphia Mansuè",
+  title:"Impegnati nel servizio", adminTitle:"Amministrazione",
+  lead:"Ognuno di noi ha ricevuto un dono da Dio. Scegli dove vorresti servire e ti contatteremo noi.",
+  lockedT:"Pagina riservata ai membri della chiesa", lockedP:"Per iscriverti, scansiona il codice QR esposto in chiesa.",
+  verse:"«Secondo che ciascuno ha ricevuto alcun dono, amministratelo gli uni agli altri, come buoni dispensatori della svariata grazia di Dio.»", verseRef:"1 Pietro 4:10 (Diodati)",
+  howT:"Come funziona",
+  how1:"<b>1. Scegli</b> uno o più ministeri — non serve esperienza.",
+  how2:"<b>2. Ti contattiamo</b> entro pochi giorni: il responsabile del ministero ti chiama o ti scrive su WhatsApp.",
+  how3:"<b>3. Inizi</b> con un periodo di inserimento, insieme a qualcuno del gruppo.",
+  progT:"Programma della chiesa", prog1:"<b>Giovani (Tineret)</b> — ogni lunedì alle 19:30", prog2:"<b>Santa Cena</b> — la prima domenica del mese",
+  formT:"Modulo di iscrizione", lName:"Nome e cognome", lPhone:"Telefono / WhatsApp",
+  lEmail:'Email <span class="hint">(facoltativa)</span>',
+  lDeps:'In quale ministero vuoi servire? <span class="hint">Puoi sceglierne più di uno.</span>',
+  loadingDeps:"Caricamento dei ministeri…",
+  lOther:'Altro? <span class="hint">(facoltativo)</span>', phOther:"Es.: fotografia, traduzioni, trasporto…",
+  lAbout:'Raccontaci qualcosa di te <span class="hint">(facoltativo)</span>', phAbout:"Doni, esperienza, cosa ti piace fare…",
+  consent:"Acconsento che i miei dati siano usati solo dalla chiesa per contattarmi riguardo al servizio.",
+  send:"Invia l'iscrizione", sending:"Invio in corso…",
+  doneT:"Grazie!", doneP:"La tua iscrizione è stata ricevuta. Ti contatteremo presto. Dio ti benedica!",
+  seeking:n => "Cerchiamo " + (n === 1 ? "1 persona" : n + " persone"), closed:"Al momento non cerchiamo persone",
+  eName:"Inserisci nome e cognome.", ePhone:"Inserisci un numero di telefono valido.", eDep:"Scegli almeno un ministero.", eConsent:"Spunta il consenso per i dati.",
+  eDepsLoad:"Non è stato possibile caricare i ministeri. Controlla la connessione e ricarica la pagina.",
+  eClosedNow:"Invio non riuscito: un ministero scelto si è appena chiuso oppure il codice QR non è più valido. Ho ricaricato l'elenco — controlla la scelta e riprova.",
+  eNet:"Invio non riuscito. Controlla la connessione e riprova.",
+  aPw:"Password", aEnter:"Accedi", aForgot:"Password dimenticata", aSetNew:"Imposta la nuova password", aChPw:"Cambia password",
+  aNew:'Nuova password <span class="hint">(minimo 8 caratteri)</span>', aRepeat:"Ripeti la password", aSavePw:"Salva la password", cancel:"Annulla", yes:"Sì",
+  aReload:"Aggiorna", aCsv:"Scarica CSV", aQr:"Codice QR", aLogout:"Esci", aQrDl:"Scarica QR (PNG)",
+  aWho:"Accesso come responsabile:", aAll:"Tutti i ministeri", aMine1:"Il tuo ministero", aMineN:"I tuoi ministeri",
+  aHelp:"Chiuso = sul modulo appare «Al momento non cerchiamo persone». Se metti un numero, scende di 1 a ogni persona accettata; a 0 il ministero si chiude da solo.",
+  aCounts:(n,a) => (n == 1 ? "1 nuovo" : n + " nuovi") + " · " + (a == 1 ? "1 accettato" : a + " accettati"),
+  aOpen:"Aperto", aClosed:"Chiuso", aDoClose:"Chiudi le iscrizioni", aDoOpen:"Apri le iscrizioni", aStill:"Cerco ancora", aSave:"Salva",
+  aSubs:"Iscrizioni", fNou:"Nuovi", fAcceptat:"Accettati", fRespins:"Rifiutati", fToti:"Tutti", fAllDeps:"Tutti i ministeri",
+  sNou:"Nuovo", sAcceptat:"Accettato", sRespins:"Rifiutato",
+  bAccept:"Accetta", bReject:"Rifiuta", bBack:"Rimetti tra i nuovi", bDel:"Elimina", aEmpty:"Nessuna iscrizione qui.", aDelQ:"Eliminare definitivamente questa iscrizione?",
+  leEmail:"Inserisci l'email.", lePw:"Inserisci la password.", leWrong:"Email o password errata.", leFail:"Accesso non riuscito: ",
+  leForgotFirst:"Scrivi prima la tua email, poi tocca «Password dimenticata».",
+  leSent:"Se l'indirizzo ha un account, ti abbiamo mandato un'email con il link per la nuova password. Controlla anche lo Spam.", leSendFail:"Invio dell'email non riuscito: ",
+  peShort:"La password deve avere almeno 8 caratteri.", peMismatch:"Le due password non coincidono.", peOk:"Password cambiata.",
+  peExpired:"Sessione scaduta. Accedi di nuovo.", peFail:"Salvataggio non riuscito: ",
+  csv:["Data","Nome","Telefono","Email","Ministero","Dettagli","Su di sé","Stato"], locale:"it-IT"
+}};
+const DEP_IT = {
+  inchinare:["Lode e adorazione","Musica, canto, coro, strumenti"],
+  sunet:["Audio","Mixer, microfoni, monitor"],
+  ledwall:["Ledwall e proiezione","Sfondi, testi dei canti, versetti e annunci sullo schermo"],
+  live:["Diretta streaming","Telecamere e trasmissione online"],
+  copii:["Bambini","Scuola domenicale, attività per i più piccoli"],
+  tineret:["Giovani","Incontri del lunedì, eventi per i giovani"],
+  rugaciune:["Preghiera","Gruppo di preghiera e intercessione"],
+  evanghelizare:["Evangelizzazione","Uscite, inviti, eventi evangelistici"],
+  social:["Aiuto sociale","Raccolta alimentare, sostegno alle famiglie"],
+  agape:["Agape e cucina","Preparazione dei pasti per gli eventi"],
+  altceva:["Altro","Proposte libere"]
+};
+let LANG = "ro";
+try{ const s = localStorage.getItem("slujire_lang"); if(s === "it" || s === "ro") LANG = s; }catch(e){}
+const t = (k, ...a) => { const v = T[LANG][k]; return typeof v === "function" ? v(...a) : v; };
+const depN = d => LANG === "it" && DEP_IT[d.id] ? DEP_IT[d.id][0] : d.nume;
+const depD = d => LANG === "it" && DEP_IT[d.id] ? DEP_IT[d.id][1] : d.descriere;
+
+const $ = id => document.getElementById(id);
+const esc = v => String(v ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const icon = k => ICONS[k] ? `<svg class="ic" viewBox="0 0 24 24" aria-hidden="true">${ICONS[k]}</svg>` : "";
+
+function applyLang(){
+  document.documentElement.lang = LANG;
+  document.querySelectorAll("[data-t]").forEach(el => el.innerHTML = t(el.dataset.t));
+  document.querySelectorAll("[data-tp]").forEach(el => el.placeholder = t(el.dataset.tp));
+  document.querySelectorAll("[data-lang]").forEach(b => b.setAttribute("aria-pressed", b.dataset.lang === LANG));
+  document.title = t("docTitle");
+  if(ADMIN){ $("ttl").textContent = t("adminTitle"); }
+  ["msg","lerr","perr"].forEach(id => { $(id).textContent = ""; });
+  if(DEPS.length) renderDeps();
+  if(data) render();
+  if(!$("setpw").hidden) $("setpwT").textContent = t(setpwMode);
+}
+document.querySelectorAll("[data-lang]").forEach(b => b.onclick = () => {
+  LANG = b.dataset.lang; try{ localStorage.setItem("slujire_lang", LANG); }catch(e){} applyLang();
+});
+
+async function rpc(fn, body){
+  const r = await fetch(`${SB_URL}/rest/v1/rpc/${fn}`, {method:"POST",
+    headers:{apikey:SB_KEY, "Content-Type":"application/json"}, body:JSON.stringify(body||{})});
+  if(!r.ok) throw new Error((await r.json().catch(()=>({}))).message || r.status);
+  return r.status === 204 ? null : r.json();
+}
+function ask(text){
+  return new Promise(res => { $("cfText").textContent = text; $("confirm").hidden = false;
+    $("cfYes").onclick = () => { $("confirm").hidden = true; res(true); };
+    $("cfNo").onclick = () => { $("confirm").hidden = true; res(false); }; });
+}
+
+// ---------- acces ----------
+const RECOVERY = /type=recovery/.test(location.hash) && /access_token=/.test(location.hash);
+const ADMIN = location.hash === "#admin" || RECOVERY || new URLSearchParams(location.search).has("admin");
+let code = new URLSearchParams(location.search).get("k");
+let DEPS = [], data = null, setpwMode = "aSetNew";
+try{ if(code) sessionStorage.setItem("k", code); else code = sessionStorage.getItem("k"); }catch(e){}
+applyLang();
+if(ADMIN){ $("adm").hidden = false; $("lead").hidden = true; }
+else if(code){ $("main").hidden = false; history.replaceState(null, "", location.pathname); loadDeps(); }
+else $("locked").hidden = false;
+
+// ---------- formular ----------
+function renderDeps(){
+  const sel = new Set([...document.querySelectorAll("input[name=dep]:checked")].map(i => i.value));
+  $("deps").innerHTML = DEPS.map(d => d.deschis
+    ? `<label class="dep"><input type="checkbox" name="dep" value="${esc(d.id)}" ${sel.has(d.id) ? "checked" : ""}>${icon(d.icon)}<span><div class="t">${esc(depN(d))}</div><div class="d">${esc(depD(d))}</div>${d.cautam ? `<span class="pill">${t("seeking", d.cautam)}</span>` : ""}</span></label>`
+    : `<div class="dep closed">${icon(d.icon)}<span><div class="t">${esc(depN(d))}</div><div class="d">${esc(depD(d))}</div><span class="pill off">${t("closed")}</span></span></div>`
+  ).join("");
+}
+async function loadDeps(){
+  try{ DEPS = await rpc("slujire_departamente"); renderDeps(); }
+  catch(e){ $("deps").innerHTML = `<p class="msg err">${t("eDepsLoad")}</p>`; }
+}
+const f = $("f"), msg = $("msg"), btn = $("btn");
+f.addEventListener("input", () => { if(msg.textContent) msg.textContent = ""; });
+f.addEventListener("submit", async e => {
+  e.preventDefault(); msg.className = "msg"; msg.textContent = "";
+  const nume = f.nume.value.trim(), tel = f.telefon.value.trim(), email = f.email.value.trim();
+  const deps = [...f.querySelectorAll("input[name=dep]:checked")].map(i => i.value);
+  const alt = f.alt.value.trim();
+  const err = nume.length < 2 ? t("eName") : tel.replace(/\D/g, "").length < 6 ? t("ePhone")
+    : (!deps.length && !alt) ? t("eDep") : !f.ok.checked ? t("eConsent") : "";
+  if(err){ msg.className = "msg err"; msg.textContent = err; return; }
+  btn.disabled = true; btn.textContent = t("sending");
+  const grup = (crypto.randomUUID ? crypto.randomUUID() : "10000000-1000-4000-8000-100000000000".replace(/[018]/g, c => (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)));
+  const base = {grup, nume, telefon:tel, email:email||null, experienta:f.exp.value.trim()||null, consimtamant:true, cod_acces:code};
+  const rows = deps.map(d => ({...base, departament:d, detalii:null}));
+  if(alt) rows.push({...base, departament:"altceva", detalii:alt});
+  try{
+    const r = await fetch(SB_URL + "/rest/v1/slujire_inscrieri", {method:"POST",
+      headers:{apikey:SB_KEY, "Content-Type":"application/json", Prefer:"return=minimal"}, body:JSON.stringify(rows)});
+    if(!r.ok) throw new Error(r.status);
+    $("main").hidden = true; $("done").hidden = false; scrollTo(0, 0);
+  }catch(x){
+    const closedNow = x.message === "401" || x.message === "403";
+    msg.className = "msg err"; msg.textContent = closedNow ? t("eClosedNow") : t("eNet");
+    if(closedNow) loadDeps();
+    btn.disabled = false; btn.textContent = t("send");
+  }
+});
+
+// ---------- admin (login cu email) ----------
+let fSt = "nou", fDep = null, sess = null;
+const AUTH = SB_URL + "/auth/v1";
+function saveSess(j){ sess = {access_token:j.access_token, refresh_token:j.refresh_token, expires_at: Date.now() + (j.expires_in||3600)*1000};
+  try{ localStorage.setItem("slujire_sess", JSON.stringify(sess)); }catch(e){} }
+function clearSess(){ sess = null; try{ localStorage.removeItem("slujire_sess"); }catch(e){} }
+async function authFetch(path, opts){
+  const r = await fetch(AUTH + path, {...opts, headers:{apikey:SB_KEY, "Content-Type":"application/json", ...(opts.headers||{})}});
+  const j = await r.json().catch(() => ({}));
+  if(!r.ok) throw new Error(j.error_description || j.msg || j.message || r.status);
+  return j;
+}
+async function token(){
+  if(!sess) throw new Error("login");
+  if(Date.now() > sess.expires_at - 60000){
+    try{ saveSess(await authFetch("/token?grant_type=refresh_token", {method:"POST", body:JSON.stringify({refresh_token:sess.refresh_token})})); }
+    catch(e){ clearSess(); throw new Error("login"); }
+  }
+  return sess.access_token;
+}
+async function arpc(fn, body){
+  const r = await fetch(`${SB_URL}/rest/v1/rpc/${fn}`, {method:"POST",
+    headers:{apikey:SB_KEY, Authorization:"Bearer " + await token(), "Content-Type":"application/json"}, body:JSON.stringify(body||{})});
+  if(!r.ok) throw new Error((await r.json().catch(()=>({}))).message || r.status);
+  return r.status === 204 ? null : r.json();
+}
+function show(which){ ["login","setpw","app"].forEach(id => $(id).hidden = id !== which); }
+async function load(){ data = await arpc("slujire_admin_date"); render(); }
+async function act(fn, body){ try{ await arpc(fn, body); await load(); }catch(e){ if(e.message === "login") show("login"); else alert(e.message); } }
+async function enter(){
+  try{ await load(); show("app"); }
+  catch(e){ show("login"); if(e.message !== "login"){ $("lerr").className = "msg err"; $("lerr").textContent = e.message; } }
+}
+$("login").addEventListener("submit", async e => {
+  e.preventDefault(); const L = $("lerr"); L.className = "msg err";
+  const em = $("em").value.trim(), pw = $("pw").value;
+  if(!/^\S+@\S+\.\S+$/.test(em)){ L.textContent = t("leEmail"); return; }
+  if(!pw){ L.textContent = t("lePw"); return; }
+  $("go").disabled = true; L.textContent = "";
+  try{ saveSess(await authFetch("/token?grant_type=password", {method:"POST", body:JSON.stringify({email:em, password:pw})})); await enter(); }
+  catch(x){ L.textContent = /invalid/i.test(x.message) ? t("leWrong") : t("leFail") + x.message; }
+  $("go").disabled = false;
+});
+["em","pw"].forEach(id => $(id).addEventListener("input", () => $("lerr").textContent = ""));
+$("forgot").onclick = async () => {
+  const L = $("lerr"), em = $("em").value.trim();
+  if(!/^\S+@\S+\.\S+$/.test(em)){ L.className = "msg err"; L.textContent = t("leForgotFirst"); return; }
+  try{ await authFetch("/recover", {method:"POST", body:JSON.stringify({email:em, redirect_to: location.origin + location.pathname + "?admin=1"})});
+    L.className = "msg"; L.textContent = t("leSent"); }
+  catch(x){ L.className = "msg err"; L.textContent = t("leSendFail") + x.message; }
+};
+function openSetpw(mode, canCancel){ setpwMode = mode; $("setpwT").textContent = t(mode); $("np1").value = $("np2").value = ""; $("perr").textContent = ""; $("pwCancel").hidden = !canCancel; show("setpw"); }
+$("chpw").onclick = () => openSetpw("aChPw", true);
+$("pwCancel").onclick = () => show(sess ? "app" : "login");
+$("setpw").addEventListener("submit", async e => {
+  e.preventDefault(); const P = $("perr"); P.className = "msg err";
+  const a = $("np1").value, b = $("np2").value;
+  if(a.length < 8){ P.textContent = t("peShort"); return; }
+  if(a !== b){ P.textContent = t("peMismatch"); return; }
+  try{ await authFetch("/user", {method:"PUT", headers:{Authorization:"Bearer " + await token()}, body:JSON.stringify({password:a})});
+    P.className = "msg"; P.textContent = t("peOk"); setTimeout(enter, 900); }
+  catch(x){ P.textContent = x.message === "login" ? t("peExpired") : t("peFail") + x.message; }
+});
+["np1","np2"].forEach(id => $(id).addEventListener("input", () => $("perr").textContent = ""));
+$("logout").onclick = async () => { try{ await authFetch("/logout", {method:"POST", headers:{Authorization:"Bearer " + sess.access_token}}); }catch(e){} clearSess(); location.hash = "#admin"; location.reload(); };
+if(ADMIN){
+  if(RECOVERY){
+    const h = new URLSearchParams(location.hash.slice(1));
+    saveSess({access_token:h.get("access_token"), refresh_token:h.get("refresh_token"), expires_in:+h.get("expires_in")||3600});
+    history.replaceState(null, "", location.pathname + "#admin");
+    openSetpw("aSetNew", false);
+  } else {
+    try{ sess = JSON.parse(localStorage.getItem("slujire_sess")); }catch(e){}
+    if(sess) enter(); else show("login");
+  }
+}
+
+const depById = id => data.departamente.find(d => d.id === id) || {id, nume:id};
+function render(){
+  const vis_d = data.departamente.filter(d => !d.ascuns);
+  $("cine").innerHTML = `${t("aWho")} <b style="color:var(--gold2);font-weight:600">${esc(LANG === "it" && DEP_IT[vis_d[0]?.id] && vis_d.length === 1 ? DEP_IT[vis_d[0].id][0] : data.nume)}</b><br><span style="font-size:13px">${esc(data.email || "")}</span>`;
+  $("hdep").textContent = data.rol === "admin" ? t("aAll") : (vis_d.length === 1 ? t("aMine1") : t("aMineN"));
+  $("depadm").innerHTML = vis_d.map(d => `
+    <div class="card" style="margin:0">
+      <div class="row" style="justify-content:space-between;flex-wrap:nowrap">
+        <div class="row" style="flex-wrap:nowrap">${icon(d.icon)}<div><h3>${esc(depN(d))}</h3>
+          <div class="meta">${t("aCounts", d.noi, d.acceptati)}</div></div></div>
+        <span class="st ${d.deschis ? "acceptat" : "respins"}">${d.deschis ? t("aOpen") : t("aClosed")}</span>
+      </div>
+      <div class="row" style="margin-top:10px">
+        <button class="gh sm ${d.deschis ? "red" : "solid"}" data-tog="${d.id}">${d.deschis ? t("aDoClose") : t("aDoOpen")}</button>
+        <span class="row" style="flex-wrap:nowrap;gap:6px"><span class="meta">${t("aStill")}</span>
+        <input class="num" type="number" min="0" inputmode="numeric" placeholder="—" value="${d.cautam ?? ""}" data-num="${d.id}">
+        <button class="gh sm" data-save="${d.id}">${t("aSave")}</button></span>
+      </div>
+    </div>`).join("");
+  document.querySelectorAll("[data-tog]").forEach(b => b.onclick = () => {
+    const d = depById(b.dataset.tog); act("slujire_set_dep", {dep:d.id, des:!d.deschis, nr:d.cautam});
+  });
+  document.querySelectorAll("[data-save]").forEach(b => b.onclick = () => {
+    const d = depById(b.dataset.save);
+    const v = document.querySelector(`[data-num="${d.id}"]`).value;
+    const nr = v === "" ? null : Math.max(0, parseInt(v, 10) || 0);
+    act("slujire_set_dep", {dep:d.id, des: nr ? true : d.deschis, nr});
+  });
+  const all = data.inscrieri;
+  const STK = {nou:"fNou", acceptat:"fAcceptat", respins:"fRespins", toti:"fToti"};
+  const cnt = s => all.filter(r => (s === "toti" || r.status === s) && (!fDep || r.departament === fDep)).length;
+  $("fst").innerHTML = Object.keys(STK).map(s => `<button class="chip ${fSt === s ? "on" : ""}" data-st="${s}">${t(STK[s])} (${cnt(s)})</button>`).join("");
+  const depsCu = [...new Set(all.map(r => r.departament))];
+  $("fdep").innerHTML = depsCu.length > 1 ? [`<button class="chip ${!fDep ? "on" : ""}" data-dep="">${t("fAllDeps")}</button>`]
+    .concat(depsCu.map(id => `<button class="chip ${fDep === id ? "on" : ""}" data-dep="${esc(id)}">${esc(depN(depById(id)))}</button>`)).join("") : "";
+  document.querySelectorAll("[data-st]").forEach(b => b.onclick = () => { fSt = b.dataset.st; render(); });
+  document.querySelectorAll("[data-dep]").forEach(b => b.onclick = () => { fDep = b.dataset.dep || null; render(); });
+  const SL = {nou:"sNou", acceptat:"sAcceptat", respins:"sRespins"};
+  const vis = all.filter(r => (fSt === "toti" || r.status === fSt) && (!fDep || r.departament === fDep));
+  $("list").innerHTML = vis.map(r => {
+    const tel = r.telefon.replace(/[^\d+]/g, ""); let wa = tel.replace(/^\+/, "").replace(/^00/, "");
+    if(wa.length === 10 && wa[0] === "3") wa = "39" + wa;
+    return `<div class="card">
+      <div class="row" style="justify-content:space-between;flex-wrap:nowrap"><h3>${esc(r.nume)}</h3><span class="st ${r.status}">${t(SL[r.status])}</span></div>
+      <div class="meta"><b style="color:var(--gold2);font-weight:500">${esc(depN(depById(r.departament)))}</b>${r.detalii ? `: ${esc(r.detalii)}` : ""} · ${new Date(r.created_at).toLocaleDateString(t("locale"))}</div>
+      <div class="meta"><a href="tel:${esc(tel)}">${esc(r.telefon)}</a> · <a target="_blank" href="https://wa.me/${esc(wa)}">WhatsApp</a>${r.email ? ` · <a href="mailto:${esc(r.email)}">${esc(r.email)}</a>` : ""}</div>
+      ${r.experienta ? `<div style="margin-top:6px;font-size:15px">${esc(r.experienta)}</div>` : ""}
+      <div class="row" style="margin-top:10px">
+        ${r.status !== "acceptat" ? `<button class="gh sm solid" data-s="acceptat" data-id="${r.id}">${t("bAccept")}</button>` : ""}
+        ${r.status !== "respins" ? `<button class="gh sm" data-s="respins" data-id="${r.id}">${t("bReject")}</button>` : ""}
+        ${r.status !== "nou" ? `<button class="gh sm" data-s="nou" data-id="${r.id}">${t("bBack")}</button>` : ""}
+        <button class="gh sm red" data-del="${r.id}" style="margin-left:auto">${t("bDel")}</button>
+      </div></div>`;
+  }).join("") || `<p class="meta">${t("aEmpty")}</p>`;
+  document.querySelectorAll("[data-s]").forEach(b => b.onclick = () => act("slujire_set_status", {rid:+b.dataset.id, st:b.dataset.s}));
+  document.querySelectorAll("[data-del]").forEach(b => b.onclick = async () => {
+    if(await ask(t("aDelQ"))) act("slujire_sterge", {rid:+b.dataset.del});
+  });
+}
+$("reload").onclick = load;
+$("csv").onclick = () => {
+  const c = v => `"${String(v ?? "").replace(/"/g, '""')}"`;
+  const lines = [t("csv").join(";")].concat(data.inscrieri.map(r => [new Date(r.created_at).toLocaleString(t("locale")), r.nume, r.telefon, r.email,
+    depN(depById(r.departament)), r.detalii, r.experienta, t({nou:"sNou", acceptat:"sAcceptat", respins:"sRespins"}[r.status])].map(c).join(";")));
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob(["﻿" + lines.join("\n")], {type:"text/csv"}));
+  a.download = "inscrieri-slujire.csv"; a.click();
+};
+$("qrbtn").onclick = async () => {
+  let c; try{ c = await arpc("slujire_cod"); }catch(e){ return alert(e.message); }
+  const url = location.origin + location.pathname + "?k=" + c;
+  const qr = qrcode(0, "M"); qr.addData(url); qr.make();
+  $("qrbox").innerHTML = qr.createSvgTag({cellSize:8, margin:2, scalable:true});
+  $("qrlink").href = url; $("qrlink").textContent = url; $("qrwrap").hidden = false;
+  $("qrdl").onclick = () => { const a = document.createElement("a"); a.href = qr.createDataURL(16, 4); a.download = "qr-slujire.png"; a.click(); };
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.min.js"></script>
+</body>
+</html>
